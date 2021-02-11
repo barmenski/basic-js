@@ -43,8 +43,8 @@ module.exports = function transform(arr) {
    
   return result;
 
-} else return "Error"; */
-
+} else return "Error"; 
+//---------------------------------------------------1 тест не проходит
 let result=[];
 if(arr.length===0){
   return result;
@@ -80,4 +80,57 @@ if(arr.length===0){
 } else return "Error";
 
 };
+//----------------------------------1 тест не проходит
+*/
+let result=arr.slice();
+  if(result.length===0){
+    return [];
+    } else if(Array.isArray(result)){
+      let i=0;
 
+      if((result[0]==='--discard-next')||(result[0]==='--discard-prev')||(result[0]==='--double-next')||(result[0]==='--double-prev')){
+        i++;
+      };
+
+      for(i; i<result.length-1; i++){
+        switch (result[i]){
+          case '--discard-next':
+            if((i+1)<=(result.length-1)){
+              result.splice(i+1, 1, "hidden");
+            }
+          break;
+          case '--discard-prev':
+            if(result[i-1]!="hidden"){
+              result.splice(i-1, 1, "hidden");
+            }
+          break;
+          case '--double-next':
+            if((i+1)<=(result.length-1)){
+              result.splice(i, 1, result[i+1]);
+            }
+          break;
+          case '--double-prev':
+            if(result[i-1]!="hidden"){
+              result.splice(i, 1, result[i-1]);
+          }
+          break;
+          default:
+          break;
+        }//выполнили команды, но массив с "мусором"   
+        
+      }
+      
+      for(i=0; i<result.length-1; i++){
+        if((result[i]==='--discard-next')||(result[i]==='--discard-prev')||(result[i]==='--double-next')||(result[i]==='--double-prev')||(result[i]==="hidden")){
+          result.splice(i, 1);
+          i--;
+        };
+      }//почистили от "мусора"
+    
+
+
+
+      return result;
+  } else return "Error";
+}
+//-----------------------------------------------------------2 теста не проходит
