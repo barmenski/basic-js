@@ -1,6 +1,83 @@
 const CustomError = require("../extensions/custom-error");
 
-module.exports = function transform(/* arr */) {
-  throw new CustomError('Not implemented');
-  // remove line with error and write your code here
+module.exports = function transform(arr) {
+  /*if(arr.length===0){
+    return [];
+  } else if(Array.isArray(arr)){
+
+    let result=[];
+    if((arr[0]==='--discard-next')||(arr[0]==='--discard-prev')||(arr[0]==='--double-next')||(arr[0]==='--double-prev')){
+      var i=1;
+      result.push(arr[i]);
+    } else {
+      var i=0;
+      result.push(arr[i]);
+    }
+    i++;
+
+  for(i; i<arr.length; i++){
+    switch(arr[i]){
+      case '--discard-next':
+        i++;
+        break;
+      case '--discard-prev':
+        if((Object.is(result[result.length-1], arr[i-1]))&&(arr[i-2]!='--discard-next')){
+          result.pop();
+          break;
+        } else break;
+      case '--double-next':
+        if((i+1)<(arr.length-1)){
+          result.push(arr[i+1]);
+          break;
+        } else break;
+      case '--double-prev':
+        if((Object.is(result[result.length-1], arr[i-1]))&&(arr[i-2]!='--discard-next')){
+          result.push(arr[i-1]);
+          break;
+        } else break;
+      default:
+        result.push(arr[i]);
+        break;
+    }
+  }
+   
+  return result;
+
+} else return "Error"; */
+
+let result=[];
+if(arr.length===0){
+  return result;
+  } else if(Array.isArray(arr)){
+    
+    if((arr[0]==='--discard-next')||(arr[0]==='--discard-prev')||(arr[0]==='--double-next')||(arr[0]==='--double-prev')){
+      var i=1;
+      result.push(arr[i]);
+    } else {
+      var i=0;
+      result.push(arr[i]);
+    }
+    i++;
+
+    for(i; i<arr.length; i++){
+      if(arr[i]==='--discard-next'){
+        i++;
+      } else if((arr[i]==='--discard-prev')&&(arr[i-2]!='--discard-next')){
+        result.pop();
+      } else if((arr[i]==='--discard-prev')&&(arr[i-2]==='--discard-next')){
+        //nothing
+      } else if((arr[i]==='--double-prev')&&(arr[i-2]!='--discard-next')){
+        result.push(arr[i-1]);
+      } else if((arr[i]==='--double-prev')&&(arr[i-2]==='--discard-next')){
+        //nothing          
+      } else if((arr[i]==='--double-next')&&((i+1)<=(arr.length-1))){
+        result.push(arr[i+1]);
+      } else if((arr[i]==='--double-next')&&((i+1)>(arr.length-1))){
+       //nothing
+      } else result.push(arr[i]);
+    }
+    return result;
+} else return "Error";
+
 };
+
