@@ -18,16 +18,14 @@ return this;
   },
 
   removeLink(position) {
-    try {
+    
       if((Number.isInteger(position))&&(position<this.chain.length)&&(position>0)){
       this.chain.splice(position-1,1);
       return this;
         } else {
-          throw new Error("Error");
-        }
-    } catch(err) {
+      
       this.chain=[];
-      return this;
+      throw new Error("Error");
     }
   },
 
